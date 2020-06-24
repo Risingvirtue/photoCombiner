@@ -1,0 +1,144 @@
+<!Doctype HTML>
+<html>
+	<head>
+		<title>Photo Combiner</title>
+		<link rel="stylesheet" href="newMain.css" />
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<!-- Socket.io-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+	</head>
+	<body>
+		<div id="container">
+			<div class="left-container">
+				<h3 class="title"><span id="title">Photo Combiner</span></h3>
+				<div id="sign">
+					<div class="hex top-left">		
+					</div>
+					<div class="hex top-right">
+					</div>
+					<div class="hex bottom-left">
+					</div>
+					<div class="hex bottom-right">
+					</div>
+					<div class="img-name"><u id="imgName">Current Image</u></div>
+					<div class="table">
+						<div class="row">
+							<div class="cell center-align">Height:</div>
+							<div class="cell"><input id="height" type="number" min="0" onchange="currDimension()"/></div>
+						</div>
+						<div class="row">
+							<div class="cell center-align">Width:</div>
+							<div class="cell"><input id="width" type="number" min="0" onchange="currDimension()"/></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div id="create-plus">
+					<div class="hex top-left">		
+					</div>
+					<div class="hex top-right">
+					</div>
+					<div class="hex bottom-left">
+					</div>
+					<div class="hex bottom-right">
+					</div>
+					
+					<div class="img-name"><button id="plus" class="button" onclick="createPlus()"><b>Create Plus</b></button></div>
+					<div class="table">
+						<div class="row">
+							<div class="cell center-align">Length:</div>
+							<div class="cell"><input id="plus-length" type="number" min="0" value="50" onchange="plusDimension()" /></div>
+						</div>
+						<div class="row">
+							<div class="cell center-align">Width:</div>
+							<div class="cell"><input id="plus-width" type="number" min="0" value="50" onchange="plusDimension()" /></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="button-container">
+					<span id='button-container'>
+						<button id="preview" class="button" onclick="preview()">Preview</button>
+						<button id="combo" class="button" onclick="generate()">Generate Combos</button>
+					</span>
+				</div>
+				
+				<div>
+					<img id="message-img" src="./scroll.jpg"></img>
+					<div id="message">Currently generating combos: 100% done</div>
+				</div>
+				
+				
+			</div>
+			<div class="right-container">
+				<div id="canvas" class="frame innerFrame">
+					<div class="line-vertical left"></div>
+					<div class="line-vertical right"></div>
+					<div class="vertical-text">1000px</div>
+					<div class="line-horizontal top"></div>
+					<div class="line-horizontal bottom"></div>
+					<div class="horizontal-text">1000px</div>
+					<div id="imgPlus" class="canvas" onmousedown="resize('Plus')">
+						<div class="plus-vertical"></div>
+						<div class="plus-horizontal"></div>
+						<div id='movePlus' onmousedown="moveDiv(event, 'Plus')" class="move-bar" style="height: 15px; width: 15px"></div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<div id="menu">
+            <ul>
+                <li onclick= "newImage(event)" id="new-image">
+                    New Image
+                </li>
+                <li onclick="deleteImage(event)" id="delete-image" >
+                    Delete Image
+                </li>
+				<li onclick="saveTemplate()" id="save-template" >
+                    Save Template
+                </li>
+            </ul>
+        </div>
+		<div>
+			<canvas id="myCanvas" class="frame innerFrame"></canvas>
+		</div>
+		
+		<div class="dice" onclick="diceClick()">
+			<img id="dice" src="./dice.jpg"></img>
+		</div>
+		<button id="load" onclick="getTemplates()">Load Template</button>
+		
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		  
+			<span>File Name: </span> <input id="filename" type="text" /> 
+			<button id="saveFile" onclick= "saveFile()">Save</button>
+		  </div>
+		</div>
+		
+		<!-- The Modal -->
+		<div id="templates" class="modal">
+				 <!-- Modal content -->
+		  <div class="modal-content">
+			<select id="template-select">
+			</select>
+			<button onclick="loadTemplate()">Load Template</button>
+			</div>
+		</div>
+		
+		<script src="display.js"></script>
+		<script src="image.js"></script>
+		<script src="main.js"></script>
+		<script src="generate.js"></script>
+		<script src="saveAndLoad.js"></script>
+	</body>
+</html>
